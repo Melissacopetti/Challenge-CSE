@@ -1,30 +1,33 @@
 import React, { useState } from "react";
 import { useCroct } from "@croct/plug-react";
-import { Personalization } from "@croct/plug-react";
-import { useNavigate } from "react-router-dom";
-import { Container, Heading, Input, Msg, TopBanner } from "./StyledPages";
+import {Personalization} from '@croct/plug-react';
+import { AjaxSection, Cities, Container, Heading, Input, Msg, TopBanner } from "./StyledPages";
 import { InputForm } from "../Components/InputForm";
 import axios from "axios";
 
+
 export default function InitialPage() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState();
+const [location, setLocation] = useState()
 
   const croct = useCroct();
-  const setLocation = React.useCallback(
-    (inputValue) => croct.user.edit().set("custom.location", inputValue).save(),
+  setLocation = React.useCallback(
+    (inputVal) => croct.user.edit().set("custom.location", inputVal).save(),
     [croct]
   );
+  let inputVal = Input.value;
 
-  const SearchCity = () => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric`;
-    axios(url)
+  const searchForTemperature = (location ? PersonaCity() : inputVal)
+ 
+const SearchCity = () => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchForTemperature}&appid=bbf39f186035e5b8401ad4b06f9c6a39&units=metric`;
+    axios
+    .get(url)
       .then((response) => response.json())
       .then((data) => {
         const { main, name, sys, weather } = data;
         const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${weather[0]["icon"]}.svg`;
         const li = document.createElement("li");
-        li.classList.add("city");
+        li.list.add("city");
         const markup = `
           <h2 class="city-name" data-name="${name},${sys.country}">
             <span>${name}</span>
@@ -45,6 +48,7 @@ export default function InitialPage() {
         Msg.textContent = "Please search for a valid city 😩";
       });
   };
+  
   Msg.textContent = "";
   InputForm.reset();
   Input.focus();
@@ -52,36 +56,23 @@ export default function InitialPage() {
   function PersonaCity() {
     return (
       <Personalization
-        attributes={" context's cities include location's city."}
+      expression="user's location's city"
       >
         {(location) => <span>{location}</span>}
       </Personalization>
     );
   }
 
-  // function handleClick() {
-  // const inputValue = document
-  //       .getElementById('personaId')
-  //       .value.trim()
-  //       .toLowerCase()
+ 
+  
 
-  //     if (
-  //       inputValue === 'developer' ||
-  //       inputValue === 'marketer' ||
-  //       inputValue === 'growth-hacker'
-  //     ) {
-  // setLocation(PersonaCity);
-  // window.location.href = "/home";
-  //     } else {
-  //       alert('Please, defined your location')
-  //     }
 
   return (
     <main>
       <div>
         <script>
           {croct
-            .evaluate(`user location`)
+            .evaluate(`user location's city`)
             .then(alert(PersonaCity ? "Welcome back!" : "Welcome!"))}
         </script>
 

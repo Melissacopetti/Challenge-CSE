@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from 'styled-components';
 import theme from './Constants/Theme';
+import InitialPage from "./Pages/InitialPage";
 import { GlobalStyle } from './Router/GlobalStyle';
 import { CroctProvider } from '@croct/plug-react'
 
@@ -12,8 +13,10 @@ const App = () => {
     <CroctProvider appId={noAccountId}>
       <ThemeProvider theme={theme}>
           <GlobalStyle />
+          <h1>Olá</h1>
+          <InitialPage/>
       </ThemeProvider>
-    </CroctProvider>
+    // </CroctProvider>
   );
 };
 

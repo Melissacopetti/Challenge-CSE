@@ -8,7 +8,7 @@ const useForm = (initialState) => {
     event.preventDefault();
     const { value, city } = event.target;
       setForm({ ...form, [city]: value })
-    let inputVal = input.value;
+    let inputVal = Input.value;
     const listItems = list.querySelectorAll(".ajax-section .city");
     const listItemsArray = Array.from(listItems);
   
