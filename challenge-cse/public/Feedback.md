@@ -9,4 +9,3 @@ Para uso em uma aplicação, decidi utilizar a lógica de localização (locatio
 <p text-align=justify >
 Acredito que o Quickstart, juntamente com a biblioteca Croct, são de fácil entendimento por parte dos desenvolvedores, além de reduzir o tempo de serviço e manter o código mais limpo. A lógica de personalização possui demanda no mercado, é muito importante que o seu desenvolvimento seja facilitado, principalmente para os desenvolvedores que estão ingressando agora na profissão. 
 </p>
-
